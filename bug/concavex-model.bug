@@ -1,0 +1,35 @@
+model{
+
+  # likelihood -------------------------------------------------------------
+
+  for(ii in 1:n.arms){
+  
+    # concavex function
+    ccvx.fit[ii] <- theta_0 + theta_1 * (((((1-lambda)/2)^2 + lambda)/(((1-lambda)/2)^2 + lambda*dose[ii]))*dose[ii])
+
+    eff[ii] ~ dnorm(ccvx.fit[ii], tau[ii]) # assume precisions are known dose-specific point estimates for now
+
+  }
+  
+  # specify priors --------------------------------------------------------
+  
+  theta_0 ~ dnorm(0, 1E-4)   # non-informative normal prior
+
+  theta_1 ~ dnorm(0, 1E-4)   # non-informative normal prior
+    
+  lambda ~ dunif(-.99, .99)  # flat prior over lambda's support (-1, 1)
+  
+  # transformations --------------------------------------------------------
+  
+  ## posterior credible interval for concavex d-r curve
+  for(ii in 1:pred.length){
+    mu.tilde[ii] <- theta_0 + theta_1 * (((((1-lambda)/2)^2 + lambda)/(((1-lambda)/2)^2 + lambda*pred.doses[ii]))*pred.doses[ii])
+  }
+
+}
+
+
+
+
+
+
