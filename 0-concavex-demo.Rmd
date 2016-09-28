@@ -1,9 +1,3 @@
----
-title: "Concavex Test Run"
-author: "Paul Manser"
-date: "September 20, 2016"
-output: html_document
----
 
 # Head Ache Data Example
 ## Read data & initialize Gibbs sampler
