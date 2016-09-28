@@ -2,7 +2,7 @@ model{
 
   # likelihood -------------------------------------------------------------
 
-  for(ii in 1:n.arms){
+  for(ii in 1:length(dose)){
   
     # concavex function
     ccvx.fit[ii] <- theta_0 + theta_1 * (((((1-lambda)/2)^2 + lambda)/(((1-lambda)/2)^2 + lambda*dose[ii]))*dose[ii])
@@ -22,8 +22,13 @@ model{
   # transformations --------------------------------------------------------
   
   ## posterior credible interval for concavex d-r curve
-  for(ii in 1:pred.length){
+  for(ii in 1:length(pred.doses)){
     mu.tilde[ii] <- theta_0 + theta_1 * (((((1-lambda)/2)^2 + lambda)/(((1-lambda)/2)^2 + lambda*pred.doses[ii]))*pred.doses[ii])
+  }
+
+  ## posterior intervals for actual dose levels
+  for(ii in 1:length(dose)){
+    dose.post[ii] <- theta_0 + theta_1 * (((((1-lambda)/2)^2 + lambda)/(((1-lambda)/2)^2 + lambda*pred.doses[ii]))*pred.doses[ii])
   }
 
 }
