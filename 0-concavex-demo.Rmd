@@ -22,9 +22,7 @@ jags.model <- jags.model('concavex-model.bug',
                              data = list('dose' = dose,
                                          'eff' = mu.hat,
                                          'tau' = 1 / var.hat,      # jags deals in precisions
-                                         'n.arms' = length(dose),
-                                         'pred.doses' = pred.doses,
-                                         'pred.length' = length(pred.doses)),
+                                         'pred.doses' = pred.doses),
                              inits = inits, n.chains = 3)
 setwd('..')
 ```
@@ -33,7 +31,7 @@ setwd('..')
 
 ## Look at posteriors
 ```{r}
-jags.samples <- jags.samples(jags.model, c("theta_0", "theta_1", "lambda", "mu.tilde"), n.iter = 5000)
+jags.samples <- jags.samples(jags.model, c("theta_0", "theta_1", "lambda", "mu.tilde", "dose.post"), n.iter = 5000)
 
 par(mfrow = c(1, 3))
 hist(jags.samples$lambda, main = "posterior for lambda")
@@ -113,9 +111,7 @@ jags.model <- jags.model('concavex-model.bug',
                              data = list('dose' = dose,
                                          'eff' = mu.hat,
                                          'tau' = 1 / var.hat,      # jags deals in precisions
-                                         'n.arms' = length(dose),
-                                         'pred.doses' = pred.doses,
-                                         'pred.length' = length(pred.doses)),
+                                         'pred.doses' = pred.doses),
                              inits = inits, n.chains = 3)
 setwd('..')
 ```
@@ -124,7 +120,7 @@ setwd('..')
 
 ## Look at posteriors
 ```{r}
-jags.samples <- jags.samples(jags.model, c("theta_0", "theta_1", "lambda", "mu.tilde"), n.iter = 5000)
+jags.samples <- jags.samples(jags.model, c("theta_0", "theta_1", "lambda", "mu.tilde", "dose.post"), n.iter = 5000)
 
 par(mfrow = c(1, 3))
 hist(jags.samples$lambda, main = "posterior for lambda")
@@ -205,9 +201,7 @@ jags.model <- jags.model('concavex-model.bug',
                              data = list('dose' = dose,
                                          'eff' = mu.hat,
                                          'tau' = 1 / var.hat,      # jags deals in precisions
-                                         'n.arms' = length(dose),
-                                         'pred.doses' = pred.doses,
-                                         'pred.length' = length(pred.doses)),
+                                         'pred.doses' = pred.doses),
                              inits = inits, n.chains = 3)
 setwd('..')
 ```
@@ -216,7 +210,7 @@ setwd('..')
 
 ## Look at posteriors
 ```{r}
-jags.samples <- jags.samples(jags.model, c("theta_0", "theta_1", "lambda", "mu.tilde"), n.iter = 5000)
+jags.samples <- jags.samples(jags.model, c("theta_0", "theta_1", "lambda", "mu.tilde", "dose.post"), n.iter = 5000)
 
 par(mfrow = c(1, 3))
 hist(jags.samples$lambda, main = "posterior for lambda")
