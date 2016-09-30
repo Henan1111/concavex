@@ -28,7 +28,7 @@ model{
 
   ## posterior intervals for actual dose levels
   for(ii in 1:length(dose)){
-    dose.post[ii] <- theta_0 + theta_1 * (((((1-lambda)/2)^2 + lambda)/(((1-lambda)/2)^2 + lambda*pred.doses[ii]))*pred.doses[ii])
+    dose.post[ii] <- theta_0 + theta_1 * (((((1-lambda)/2)^2 + lambda)/(((1-lambda)/2)^2 + lambda*dose[ii]))*dose[ii])
   }
 
 }
