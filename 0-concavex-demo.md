@@ -1,6 +1,6 @@
-Concavex Curve Fitting Example
+Concavex Model Fitting Demo
 ================
-
+October 3, 2016
 
 Head Ache Data Example
 ======================
@@ -84,10 +84,8 @@ gelman.plot(coda.samples)
 Gibbs sampler trace
 -------------------
 
-Use few iterations to not overwhelm vector graphics in pdf
-
 ``` {.r}
-coda.samples <- coda.samples(jags.model, c("theta_0", "theta_1", "lambda"), n.iter = 500)
+coda.samples <- coda.samples(jags.model, c("theta_0", "theta_1", "lambda"), n.iter = 5000)
 par(mfrow=c(1, 3))
 traceplot(coda.samples, smooth = TRUE)
 ```
@@ -210,10 +208,8 @@ gelman.plot(coda.samples)
 Gibbs sampler trace
 -------------------
 
-Use few iterations to not overwhelm vector graphics in pdf
-
 ``` {.r}
-coda.samples <- coda.samples(jags.model, c("theta_0", "theta_1", "lambda"), n.iter = 500)
+coda.samples <- coda.samples(jags.model, c("theta_0", "theta_1", "lambda"), n.iter = 5000)
 par(mfrow=c(1, 3))
 traceplot(coda.samples, smooth = TRUE)
 ```
@@ -333,10 +329,8 @@ gelman.plot(coda.samples)
 Gibbs sampler trace
 -------------------
 
-Use few iterations to not overwhelm vector graphics in pdf
-
 ``` {.r}
-coda.samples <- coda.samples(jags.model, c("theta_0", "theta_1", "lambda"), n.iter = 500)
+coda.samples <- coda.samples(jags.model, c("theta_0", "theta_1", "lambda"), n.iter = 5000)
 par(mfrow=c(1, 3))
 traceplot(coda.samples, smooth = TRUE)
 ```
