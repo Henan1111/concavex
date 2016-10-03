@@ -1,7 +1,6 @@
 
 ---
-title: "Untitled"
-author: "Paul Manser"
+title: "Concavex Model Fitting Demo"
 date: "October 3, 2016"
 output: github_document
 ---
