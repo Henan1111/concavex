@@ -2,5 +2,5 @@
 .Rhistory
 .RData
 .Rproj
-.html
-.Rmd
+*.html
+*.Rmd
