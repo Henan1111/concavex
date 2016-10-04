@@ -1,12 +1,14 @@
----
-title: "Headache Example"
-date: "October 4, 2016"
-output: github_document
----
+Headache Example
+================
+October 4, 2016
 
-# Regeneron Example
-## Read data & initialize Gibbs sampler
-```{r, message=FALSE, warning=FALSE}
+Regeneron Example
+=================
+
+Read data & initialize Gibbs sampler
+------------------------------------
+
+``` {.r}
 library(rjags)
 library(coda)
 
@@ -30,14 +32,27 @@ jags.model <- jags.model('concavex-model.bug',
                                          'tau' = 1 / var.hat,      # jags deals in precisions
                                          'pred.doses' = pred.doses),
                              inits = inits, n.chains = 3)
+```
+
+    ## Compiling model graph
+    ##    Resolving undeclared variables
+    ##    Allocating nodes
+    ## Graph information:
+    ##    Observed stochastic nodes: 5
+    ##    Unobserved stochastic nodes: 3
+    ##    Total graph size: 9637
+    ## 
+    ## Initializing model
+
+``` {.r}
 setwd('..')
 setwd('examples')
 ```
 
+Look at parameter posteriors
+----------------------------
 
-
-## Look at parameter posteriors
-```{r }
+``` {.r}
 jags.samples <- jags.samples(jags.model, c("theta_0", "theta_1", "lambda", "mu.tilde", "dose.post"), n.iter = 5000)
 
 par(mfrow = c(1, 3))
@@ -46,30 +61,43 @@ hist(jags.samples$theta_0, main = "posterior for theta_0")
 hist(jags.samples$theta_1, main = "posterior for theta_1")
 ```
 
-## Look at posteriors for effect size at different doses
-```{r }
+![](regeneron-example_files/figure-markdown_github/unnamed-chunk-2-1.png)
+
+Look at posteriors for effect size at different doses
+-----------------------------------------------------
+
+``` {.r}
 par(mfrow = c(3, 3))
 for(ii in 1:length(dose)) hist(jags.samples$dose.post[ii, , ], main = round(dose[ii], 3), breaks = 50)
 ```
 
-## BGR Diagnostics
-```{r }
+![](regeneron-example_files/figure-markdown_github/unnamed-chunk-3-1.png)
+
+BGR Diagnostics
+---------------
+
+``` {.r}
 coda.samples <- coda.samples(jags.model, c("theta_0", "theta_1", "lambda"), n.iter = 5000)
 gelman.plot(coda.samples)
 ```
 
+![](regeneron-example_files/figure-markdown_github/unnamed-chunk-4-1.png)
 
-## Gibbs sampler trace
-```{r }
+Gibbs sampler trace
+-------------------
+
+``` {.r}
 coda.samples <- coda.samples(jags.model, c("theta_0", "theta_1", "lambda"), n.iter = 5000)
 par(mfrow=c(1, 3))
 traceplot(coda.samples, smooth = TRUE)
 ```
 
+![](regeneron-example_files/figure-markdown_github/unnamed-chunk-5-1.png)
 
+Plot concavex fit w/ credible interval
+--------------------------------------
 
-## Plot concavex fit w/ credible interval
-```{r }
+``` {.r}
 dose.range <- seq(0, max(dose), length.out = 500)
 dose.range.orig <- seq(0, max(dose.orig), length.out = 500)
 theta_0_mean <- mean(jags.samples$theta_0)
@@ -97,12 +125,15 @@ lines(dose.range.orig, pci.ll, col = 'grey', lwd = 2)
 lines(dose.range.orig, pci.ul, col = 'grey', lwd = 2)
 ```
 
+![](regeneron-example_files/figure-markdown_github/unnamed-chunk-6-1.png)
 
+Null Regeneron Example
+======================
 
+Read data & initialize Gibbs sampler
+------------------------------------
 
-# Null Regeneron Example 
-## Read data & initialize Gibbs sampler
-```{r, message=FALSE, warning=FALSE}
+``` {.r}
 # read in data ------------------------------------------------------------
 dose.orig <- c(0, 1, 3, 6, 9)
 dose <- dose.orig / max(dose.orig)
@@ -124,14 +155,27 @@ jags.model <- jags.model('concavex-model.bug',
                                          'tau' = 1 / var.hat,      # jags deals in precisions
                                          'pred.doses' = pred.doses),
                              inits = inits, n.chains = 3)
+```
+
+    ## Compiling model graph
+    ##    Resolving undeclared variables
+    ##    Allocating nodes
+    ## Graph information:
+    ##    Observed stochastic nodes: 5
+    ##    Unobserved stochastic nodes: 3
+    ##    Total graph size: 9637
+    ## 
+    ## Initializing model
+
+``` {.r}
 setwd('..')
 setwd('examples')
 ```
 
+Look at parameter posteriors
+----------------------------
 
-
-## Look at parameter posteriors
-```{r }
+``` {.r}
 jags.samples <- jags.samples(jags.model, c("theta_0", "theta_1", "lambda", "mu.tilde", "dose.post"), n.iter = 5000)
 
 par(mfrow = c(1, 3))
@@ -140,28 +184,43 @@ hist(jags.samples$theta_0, main = "posterior for theta_0")
 hist(jags.samples$theta_1, main = "posterior for theta_1")
 ```
 
-## Look at posteriors for effect size at different doses
-```{r }
+![](regeneron-example_files/figure-markdown_github/unnamed-chunk-8-1.png)
+
+Look at posteriors for effect size at different doses
+-----------------------------------------------------
+
+``` {.r}
 par(mfrow = c(3, 3))
 for(ii in 1:length(dose)) hist(jags.samples$dose.post[ii, , ], main = round(dose[ii], 3), breaks = 50)
 ```
 
-## BGR Diagnostics
-```{r }
+![](regeneron-example_files/figure-markdown_github/unnamed-chunk-9-1.png)
+
+BGR Diagnostics
+---------------
+
+``` {.r}
 coda.samples <- coda.samples(jags.model, c("theta_0", "theta_1", "lambda"), n.iter = 5000)
 gelman.plot(coda.samples)
 ```
 
-## Gibbs sampler trace
-```{r }
+![](regeneron-example_files/figure-markdown_github/unnamed-chunk-10-1.png)
+
+Gibbs sampler trace
+-------------------
+
+``` {.r}
 coda.samples <- coda.samples(jags.model, c("theta_0", "theta_1", "lambda"), n.iter = 5000)
 par(mfrow=c(1, 3))
 traceplot(coda.samples, smooth = TRUE)
 ```
 
+![](regeneron-example_files/figure-markdown_github/unnamed-chunk-11-1.png)
 
-## Plot concavex fit w/ credible interval
-```{r }
+Plot concavex fit w/ credible interval
+--------------------------------------
+
+``` {.r}
 dose.range <- seq(0, max(dose), length.out = 500)
 dose.range.orig <- seq(0, max(dose.orig), length.out = 500)
 theta_0_mean <- mean(jags.samples$theta_0)
@@ -189,3 +248,4 @@ lines(dose.range.orig, pci.ll, col = 'grey', lwd = 2)
 lines(dose.range.orig, pci.ul, col = 'grey', lwd = 2)
 ```
 
+![](regeneron-example_files/figure-markdown_github/unnamed-chunk-12-1.png)
