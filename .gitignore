@@ -4,3 +4,4 @@
 .Rproj
 *.html
 *.Rmd
+*.DS_Store
